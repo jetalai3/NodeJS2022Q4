@@ -1,12 +1,16 @@
-const path = require("path");
-const fs = require("fs");
-const csvToJson = require("csvtojson");
-const { parseLine } = require("./util");
+import fs from "fs";
+import path from "path";
+import csvToJson from "csvtojson";
+import parseLine from "./util";
 
 const csvFilePath = path.resolve(__dirname, "csv/mock.csv");
 const outputPath = path.resolve(__dirname, "temp/result.txt");
 
-csvToJson()
+Promise.all([
+  fs.promises.mkdir(path.dirname(csvFilePath), { recursive: true }),
+  fs.promises.mkdir(path.dirname(outputPath), { recursive: true }),
+]).then(() => 
+  csvToJson()
   .fromFile(csvFilePath)
   .subscribe(
     (line) => {
@@ -25,4 +29,5 @@ csvToJson()
     (err) => {
       console.error("error: " + err);
     }
-  );
+  )
+)

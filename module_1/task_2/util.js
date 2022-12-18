@@ -10,4 +10,4 @@ const parseLine = (line) => {
   );
 };
 
-module.exports = { parseLine };
+export default parseLine;
