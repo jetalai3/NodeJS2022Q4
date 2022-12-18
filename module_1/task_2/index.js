@@ -23,7 +23,7 @@ Promise.all([
         });
 
         const parsedLine = parseLine(line);
-        resolve(writeStream.write(JSON.stringify(parsedLine) + '\n'));
+        resolve(writeStream.write(JSON.stringify(parsedLine) + "\n"));
       });
     },
     (err) => {
