@@ -30,4 +30,7 @@ Promise.all([
       console.error("error: " + err);
     }
   )
-)
+).catch((err) => {
+  fs.promises.rmdir(outputPath);
+  console.log("error: " + err);
+});
