@@ -1,0 +1,34 @@
+{
+    "name": "nodejs2022q4",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "build": "tsc --project ./",
+      "start": "nodemon --exec babel-node -- ./module_2/index.js",
+      "lint": "eslint ./ --ext ts"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/jetalai3/NodeJS2022Q4.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/jetalai3/NodeJS2022Q4/issues"
+    },
+    "homepage": "https://github.com/jetalai3/NodeJS2022Q4#readme",
+    "devDependencies": {
+      "@babel/core": "^7.20.5",
+      "@babel/eslint-parser": "^7.19.1",
+      "@babel/node": "^7.20.5",
+      "@babel/preset-env": "^7.20.2",
+      "eslint": "^8.31.0",
+      "nodemon": "^2.0.20"
+    },
+    "dependencies": {
+      "express": "^4.18.2",
+      "uuid": "^9.0.0"
+    }
+  }
