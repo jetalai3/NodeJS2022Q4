@@ -42,15 +42,7 @@ export class UserService {
 
     getSuggestedUsers = (loginSubstring, limit = 10) => this.users
         .filter(user => !user.isDeleted)
-        .filter(user => user.login.includes(loginSubstring))
-        .sort((userA, userB) => {
-            if (userA.login < userB.login) {
-                return -1;
-            }
-            if (userA.login > userB.login) {
-                return 1;
-            }
-            return 0;
-        })
+        .filter((user) => user.login.includes(loginSubstring))
+        .sort((left, right) => left.login.localeCompare(right.login))
         .slice(0, limit);
 }
