@@ -37,9 +37,9 @@ export function createUserRouter(userService) {
     router.put(USERS_WITH_ID_PATH, validateSchema(schema), (req, res) => {
         try {
             const userData = req.body;
-            userService.updateUser(req.params.id, userData);
+            const updatedUser = userService.updateUser(req.params.id, userData);
 
-            res.sendStatus(204);
+            res.json(updatedUser);
         } catch (error) {
             console.log(error);
 

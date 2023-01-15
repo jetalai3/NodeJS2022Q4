@@ -29,6 +29,7 @@ export class UserService {
         }
 
         Object.assign(user, userToUpdate);
+        return user;
     };
 
     markUserAsDeleted = (id) => {
