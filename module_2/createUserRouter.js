@@ -2,12 +2,18 @@ import { Router } from 'express';
 
 import { schema } from './schema';
 import { validateSchema } from './validation';
-import { USER_PATH, AUTO_SUGGEST_PATH, USER_CREATE_PATH } from './constants';
+import { USERS_PATH, USER_AUTO_SUGGEST_PATH, USERS_WITH_ID_PATH } from './constants';
 
 export function createUserRouter(userService) {
     const router = Router();
 
-    router.get(USER_PATH, (req, res) => {
+    router.get(USERS_PATH, (_, res) => {
+        const users = userService.getUsers();
+
+        res.json(users);
+    });
+
+    router.get(USERS_WITH_ID_PATH, (req, res) => {
         const user = userService.getUserById(req.params.id);
 
         if (user) {
@@ -17,31 +23,47 @@ export function createUserRouter(userService) {
         }
     });
 
-    router.post(AUTO_SUGGEST_PATH, (req, res) => {
-        const { login, limit } = req.body;
-        const suggestedUsers = userService.getSuggestedUsers(login, limit);
+    router.post(USER_AUTO_SUGGEST_PATH, (req, res) => {
+        const { substring, limit } = req.query;
+        const suggestedUsers = userService.getSuggestedUsers(substring, limit);
 
-        res.json(suggestedUsers);
+        if (suggestedUsers.length) {
+            res.json(suggestedUsers);
+        } else {
+            res.status(404).json({ message: 'No matching Users found' });
+        }
     });
 
-    router.put(USER_PATH, validateSchema(schema), (req, res) => {
+    router.put(USERS_WITH_ID_PATH, validateSchema(schema), (req, res) => {
+        try {
+            const userData = req.body;
+            userService.updateUser(req.params.id, userData);
+
+            res.sendStatus(204);
+        } catch (error) {
+            console.log(error);
+
+            res.status(404).json({ message: 'User not found' });
+        }
+    });
+
+    router.post(USERS_PATH, validateSchema(schema), (req, res) => {
         const userData = req.body;
-        userService.updateUser(req.params.id, userData);
+        const user = userService.createUser(userData);
 
-        res.sendStatus(204);
+        res.send(user);
     });
 
-    router.post(USER_CREATE_PATH, validateSchema(schema), (req, res) => {
-        const user = req.body;
-        const id = userService.createUser(user);
+    router.delete(USERS_WITH_ID_PATH, (req, res) => {
+        try {
+            userService.markUserAsDeleted(req.params.id);
 
-        res.send(id);
-    });
+            res.sendStatus(204);
+        } catch (error) {
+            console.log(error);
 
-    router.delete(USER_PATH, (req, res) => {
-        userService.markUserAsDeleted(req.params.id);
-
-        res.sendStatus(204);
+            res.status(404).json({ message: 'User not found' });
+        }
     });
 
     return router;

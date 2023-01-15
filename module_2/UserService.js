@@ -5,6 +5,8 @@ export class UserService {
         this.users = [];
     }
 
+    getUsers = () => this.users;
+
     getUserById = (id) => this.users
         .filter(user => !user.isDeleted)
         .find(user => user.id === id);
