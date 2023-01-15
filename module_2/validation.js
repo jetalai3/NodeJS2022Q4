@@ -1,6 +1,6 @@
 const errorResponse = (schemaErrors) => {
     const errors = schemaErrors.map(error => {
-        let { path, message } = error;
+        const { path, message } = error;
         return { path, message };
     });
     return {
@@ -19,7 +19,7 @@ export const validateSchema = (schema) => {
         if (error?.isJoi) {
             res.status(400).json(errorResponse(error.details));
         } else {
-            next();
+            return next();
         }
     };
 };

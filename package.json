@@ -4,9 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "build": "tsc --project ./",
         "start": "nodemon --exec babel-node -- ./module_2/index.js",
-        "lint": "eslint ./ --ext ts"
+        "lint": "eslint ./"
     },
     "repository": {
         "type": "git",
