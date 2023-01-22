@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import { schema } from './schema';
-import { validateSchema } from './validation';
+import { schema } from '../validation/schema';
+import { validateSchema } from '../validation/validation';
 import { USERS_PATH, USER_AUTO_SUGGEST_PATH, USERS_WITH_ID_PATH } from './constants';
 
 export function createUserRouter(userService) {

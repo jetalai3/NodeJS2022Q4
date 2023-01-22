@@ -1,8 +1,8 @@
 import express from 'express';
-import { createUserRouter } from './createUserRouter';
-import { UserService } from './UserService';
-import { UserRepository } from './UserRepository';
-import { db } from './db';
+import { createUserRouter } from './routes/createUserRouter';
+import { UserService } from './services/UserService';
+import { UserRepository } from './data-access/UserRepository';
+import { db } from './datasource/db';
 
 const PORT = Number(process.env.PORT) || 3001;
 
