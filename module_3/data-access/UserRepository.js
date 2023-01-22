@@ -31,8 +31,6 @@ export class UserRepository {
     }
 
     getSuggestedUsers(loginSubstring, limit) {
-        console.log(loginSubstring);
-        console.log(limit);
-        return this.datasource.from('users').where('login', 'like', `%${loginSubstring[0]}%`).orderBy('login', 'desc').limit(limit);
+        return this.datasource.from('users').where('login', 'like', `%${loginSubstring}%`).orderBy('login', 'desc').limit(limit);
     }
 }
