@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import { uuidValidationRegExp } from './constants';
 
 export class UserRepository {
     constructor(datasource) {
@@ -9,8 +10,7 @@ export class UserRepository {
     }
 
     getUserById(id) {
-        const uuidRegExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
-        if (!uuidRegExp.test(id)) {
+        if (!uuidValidationRegExp.test(id)) {
             return null;
         }
 

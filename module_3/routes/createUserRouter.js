@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { schema } from '../validation/schema';
+import { userSchema } from '../validation/userSchema';
 import { validateSchema } from '../validation/validation';
 import { USERS_PATH, USER_AUTO_SUGGEST_PATH, USERS_WITH_ID_PATH } from './constants';
 
@@ -42,7 +42,7 @@ export function createUserRouter(userService) {
         }
     });
 
-    router.put(USERS_WITH_ID_PATH, validateSchema(schema), async (req, res) => {
+    router.put(USERS_WITH_ID_PATH, validateSchema(userSchema), async (req, res) => {
         try {
             const userData = req.body;
             const updatedUser = await userService.updateUser(req.params.id, userData);
@@ -55,7 +55,7 @@ export function createUserRouter(userService) {
         }
     });
 
-    router.post(USERS_PATH, validateSchema(schema), async (req, res) => {
+    router.post(USERS_PATH, validateSchema(userSchema), async (req, res) => {
         const userData = req.body;
         try {
             const user = await userService.createUser(userData);
