@@ -12,4 +12,6 @@ export class GroupService {
     updateGroup = (id, groupToUpdate) => this.groupRepository.updateGroup(id, groupToUpdate);
 
     deleteGroup = (id) => this.groupRepository.deleteGroup(id);
+
+    addUsersToGroup = (groupId, userIds) => this.groupRepository.addUsersToGroup(groupId, userIds);
 }

@@ -34,4 +34,12 @@ export class GroupRepository {
     deleteGroup(id) {
         return this.datasource('groups').where('id', id).del();
     }
+
+    addUsersToGroup(groupId, userIds) {
+        const rows = userIds.map(user_id => ({ user_id, group_id: groupId }));
+
+        return this.datasource.transaction(async trx => {
+            await trx('user_group').insert(rows);
+        });
+    }
 }
