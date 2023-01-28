@@ -9,6 +9,11 @@ export class UserRepository {
     }
 
     getUserById(id) {
+        const uuidRegExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
+        if (!uuidRegExp.test(id)) {
+            return null;
+        }
+
         return this.datasource.from('users').where('id', id).where('is_deleted', false).first();
     }
 

@@ -36,11 +36,7 @@ export function createUserRouter(userService) {
         try {
             const suggestedUsers = await userService.getSuggestedUsers(substring, limit);
 
-            if (suggestedUsers.length) {
-                res.json(suggestedUsers);
-            } else {
-                res.status(404).json({ message: 'No matching Users found' });
-            }
+            res.json(suggestedUsers);
         } catch (error) {
             res.status(500).json({ message: 'Internal server error' });
         }
