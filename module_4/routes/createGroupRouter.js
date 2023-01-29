@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import { groupSchema } from '../validation/groupSchema';
 import { validateSchema } from '../validation/validation';
-import { ADD_USERS_TO_GROUP, GROUPS_PATH, GROUPS_WITH_ID_PATH } from './constants';
+import { ADD_USERS_TO_GROUP, ENTITY_NOT_FOUND_CODE, GROUPS_PATH, GROUPS_WITH_ID_PATH, UNIQUE_CONSTRAINT_VOILATION_CODE, UUID_FORMAT_ERROR } from './constants';
 
 export function createGroupRouter(groupService) {
     const router = Router();
@@ -70,8 +70,10 @@ export function createGroupRouter(groupService) {
 
             res.sendStatus(201);
         } catch (error) {
-            if (error.detail.indexOf('already exists')) {
+            if (error.code === UNIQUE_CONSTRAINT_VOILATION_CODE) {
                 res.status(409).json({ message: 'One of users already exists in group' });
+            } else if (error.code === ENTITY_NOT_FOUND_CODE || error.code === UUID_FORMAT_ERROR) {
+                res.status(404).json({ message: 'One of entities not found' });
             } else {
                 res.status(500).json({ message: 'Internal server error' });
             }

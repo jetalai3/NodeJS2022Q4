@@ -49,8 +49,6 @@ export function createUserRouter(userService) {
 
             res.json(updatedUser);
         } catch (error) {
-            console.log(error);
-
             res.status(404).json({ message: 'User not found' });
         }
     });
@@ -72,8 +70,6 @@ export function createUserRouter(userService) {
 
             res.sendStatus(204);
         } catch (error) {
-            console.log(error);
-
             res.status(404).json({ message: 'User not found' });
         }
     });
