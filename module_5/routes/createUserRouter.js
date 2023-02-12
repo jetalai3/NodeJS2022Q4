@@ -1,13 +1,14 @@
 import { Router } from 'express';
+import handler from '../logging/LoggingMiddleware';
 
 import { userSchema } from '../validation/userSchema';
 import { validateSchema } from '../validation/validation';
 import { USERS_PATH, USER_AUTO_SUGGEST_PATH, USERS_WITH_ID_PATH } from './constants';
 
-export function createUserRouter(userService) {
+export function createUserRouter(userService, requestLogger) {
     const router = Router();
 
-    router.get(USERS_PATH, async (_, res) => {
+    router.get(USERS_PATH, handler, async (_, res) => {
         try {
             const users = await userService.getUsers();
 
@@ -17,16 +18,19 @@ export function createUserRouter(userService) {
         }
     });
 
-    router.get(USERS_WITH_ID_PATH, async (req, res) => {
+    router.get(USERS_WITH_ID_PATH, handler, async (req, res) => {
         try {
+            // requestLogger.info('GET USER BY ID', req);
             const user = await userService.getUserById(req.params.id);
 
             if (user) {
                 res.json(user);
             } else {
+                requestLogger.error('GET USER BY ID', req);
                 res.status(404).json({ message: 'User not found' });
             }
         } catch (error) {
+            requestLogger.error(error.message, { ...error });
             res.status(500).json({ message: 'Internal server error' });
         }
     });
