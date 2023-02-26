@@ -10,7 +10,6 @@ export function createLoginRouter(userService) {
         try {
             const { login, password } = req.body;
             const user = await userService.getUserByLoginAndPassword(login, password);
-            console.log('user', user);
             if (!user) {
                 res.status(401);
                 res.json('Unauthorized');
