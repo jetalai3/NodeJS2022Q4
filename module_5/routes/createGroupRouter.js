@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import logger from '../logging/appLogger';
 
 import { groupSchema } from '../validation/groupSchema';
 import { validateSchema } from '../validation/validation';
@@ -13,6 +14,7 @@ export function createGroupRouter(groupService) {
 
             res.json(groups);
         } catch (error) {
+            logger.warn(`Error: ${error.message}`);
             res.status(500).json({ message: 'Internal server error' });
         }
     });
@@ -27,6 +29,7 @@ export function createGroupRouter(groupService) {
                 res.status(404).json({ message: 'Group not found' });
             }
         } catch (error) {
+            logger.warn(`Error: ${error.message}`);
             res.status(500).json({ message: 'Internal server error' });
         }
     });
@@ -38,6 +41,7 @@ export function createGroupRouter(groupService) {
 
             res.json(updatedGroup);
         } catch (error) {
+            logger.warn(`Error: ${error.message}`);
             res.status(404).json({ message: 'Group not found' });
         }
     });
@@ -49,6 +53,7 @@ export function createGroupRouter(groupService) {
 
             res.send(group);
         } catch (error) {
+            logger.warn(`Error: ${error.message}`);
             res.status(500).json({ message: 'Internal server error' });
         }
     });
@@ -59,6 +64,7 @@ export function createGroupRouter(groupService) {
 
             res.sendStatus(204);
         } catch (error) {
+            logger.warn(`Error: ${error.message}`);
             res.status(404).json({ message: 'Group not found' });
         }
     });
@@ -70,6 +76,7 @@ export function createGroupRouter(groupService) {
 
             res.sendStatus(201);
         } catch (error) {
+            logger.warn(`Error: ${error.message}`);
             if (error.code === UNIQUE_CONSTRAINT_VOILATION_CODE) {
                 res.status(409).json({ message: 'One of users already exists in group' });
             } else if (error.code === ENTITY_NOT_FOUND_CODE || error.code === UUID_FORMAT_ERROR) {
