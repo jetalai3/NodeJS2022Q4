@@ -1,8 +1,8 @@
 import logger from './appLogger';
 
-const handler = (req, res, next) => {
+const loggingMiddleware = (req, res, next) => {
     try {
-        logger.debug(`URL: ${req.url}; METHOD: ${req.method}; PARAMS: ${JSON.stringify(req.params)}; BODY: ${JSON.stringify(req.body)}`);
+        logger.info(`URL: ${req.url}; METHOD: ${req.method}; BODY: ${JSON.stringify(req.body)}`);
         return next();
     } catch (error) {
         logger.error(error.message, { ...error });
@@ -10,4 +10,4 @@ const handler = (req, res, next) => {
     }
 };
 
-export default handler;
+export default loggingMiddleware;

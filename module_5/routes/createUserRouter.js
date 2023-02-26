@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import handler from '../logging/LoggingMiddleware';
+import loggingMiddleware from '../logging/LoggingMiddleware';
 
 import { userSchema } from '../validation/userSchema';
 import { validateSchema } from '../validation/validation';
@@ -8,7 +8,7 @@ import { USERS_PATH, USER_AUTO_SUGGEST_PATH, USERS_WITH_ID_PATH } from './consta
 export function createUserRouter(userService, requestLogger) {
     const router = Router();
 
-    router.get(USERS_PATH, handler, async (_, res) => {
+    router.get(USERS_PATH, async (_, res) => {
         try {
             const users = await userService.getUsers();
 
@@ -18,7 +18,7 @@ export function createUserRouter(userService, requestLogger) {
         }
     });
 
-    router.get(USERS_WITH_ID_PATH, handler, async (req, res) => {
+    router.get(USERS_WITH_ID_PATH, loggingMiddleware, async (req, res) => {
         try {
             // requestLogger.info('GET USER BY ID', req);
             const user = await userService.getUserById(req.params.id);
