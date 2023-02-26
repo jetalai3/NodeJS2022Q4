@@ -16,7 +16,6 @@ export function createLoginRouter(userService) {
             }
             res.json({ token: jwt.sign({ id: user.id }, process.env.TOKEN_KEY) });
         } catch (error) {
-            console.log('error', error);
             logger.warn(`Error: ${error.message}`);
             res.status(404).json({ message: 'User not found' });
         }
