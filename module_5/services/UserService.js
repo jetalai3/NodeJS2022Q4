@@ -14,4 +14,6 @@ export class UserService {
     markUserAsDeleted = (id) => this.userRepository.markUserAsDeleted(id);
 
     getSuggestedUsers = (loginSubstring, limit = 10) => this.userRepository.getSuggestedUsers(loginSubstring, limit);
+
+    getUserByLoginAndPassword = (login, password) => this.userRepository.getUserByLoginAndPassword(login, password);
 }

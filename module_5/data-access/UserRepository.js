@@ -38,4 +38,8 @@ export class UserRepository {
     getSuggestedUsers(loginSubstring, limit) {
         return this.datasource.from('users').where('login', 'like', `%${loginSubstring}%`).orderBy('login', 'desc').limit(limit);
     }
+
+    getUserByLoginAndPassword(login, password) {
+        return this.datasource.from('users').where('login', login).andWhere('password', password).first();
+    }
 }
