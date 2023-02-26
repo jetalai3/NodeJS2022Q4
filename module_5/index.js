@@ -20,7 +20,7 @@ app.listen(PORT, () => logger.info(`server has started on port ${PORT}`));
 
 function logUncaughtError(error) {
     console.log('error', error);
-    logger.info(error.message, { ...error });
+    logger.error(error.message, { ...error });
     process.exit(1);
 }
 process.on('uncaughtException', logUncaughtError);

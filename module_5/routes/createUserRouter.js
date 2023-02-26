@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import logger from '../logging/appLogger';
 
 import { userSchema } from '../validation/userSchema';
 import { validateSchema } from '../validation/validation';
@@ -13,6 +14,7 @@ export function createUserRouter(userService) {
 
             res.json(users);
         } catch (error) {
+            logger.warn(`Error: ${error.message}`);
             res.status(500).json({ message: 'Internal server error' });
         }
     });
@@ -27,6 +29,7 @@ export function createUserRouter(userService) {
                 res.status(404).json({ message: 'User not found' });
             }
         } catch (error) {
+            logger.warn(`Error: ${error.message}`);
             res.status(500).json({ message: 'Internal server error' });
         }
     });
@@ -38,6 +41,7 @@ export function createUserRouter(userService) {
 
             res.json(suggestedUsers);
         } catch (error) {
+            logger.warn(`Error: ${error.message}`);
             res.status(500).json({ message: 'Internal server error' });
         }
     });
@@ -49,6 +53,7 @@ export function createUserRouter(userService) {
 
             res.json(updatedUser);
         } catch (error) {
+            logger.warn(`Error: ${error.message}`);
             res.status(404).json({ message: 'User not found' });
         }
     });
@@ -60,6 +65,7 @@ export function createUserRouter(userService) {
 
             res.send(user);
         } catch (error) {
+            logger.warn(`Error: ${error.message}`);
             res.status(500).json({ message: 'Internal server error' });
         }
     });
@@ -70,6 +76,7 @@ export function createUserRouter(userService) {
 
             res.sendStatus(204);
         } catch (error) {
+            logger.warn(`Error: ${error.message}`);
             res.status(404).json({ message: 'User not found' });
         }
     });
