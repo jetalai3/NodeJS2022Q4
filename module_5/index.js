@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { createUserRouter } from './routes/createUserRouter';
 import { UserService } from './services/UserService';
 import { UserRepository } from './data-access/UserRepository';
@@ -14,7 +15,7 @@ const PORT = Number(process.env.PORT) || 3001;
 
 const app = express();
 
-app.use(express.json()).use(loggingMiddleware).use('/', createUserRouter(new UserService(new UserRepository(db))))
+app.use(cors()).use(express.json()).use(loggingMiddleware).use('/', createUserRouter(new UserService(new UserRepository(db))))
     .use('/', createGroupRouter(new GroupService(new GroupRepository(db)))).use(globalErrorMiddleware);
 app.listen(PORT, () => logger.info(`server has started on port ${PORT}`));
 
