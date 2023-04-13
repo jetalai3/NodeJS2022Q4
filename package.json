@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon --exec babel-node -- ./module_4/index.js",
+        "start": "nodemon --exec babel-node -- ./module_5/index.js",
         "lint": "eslint ./"
     },
     "repository": {
@@ -32,6 +32,8 @@
         "joi": "^17.7.0",
         "knex": "^2.4.2",
         "pg": "^8.8.0",
-        "uuid": "^9.0.0"
+        "uuid": "^9.0.0",
+        "winston": "^3.8.2",
+        "winston-daily-rotate-file": "^4.7.1"
     }
 }
