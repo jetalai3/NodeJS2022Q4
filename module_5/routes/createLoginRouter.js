@@ -13,8 +13,9 @@ export function createLoginRouter(userService) {
             if (!user) {
                 res.status(401);
                 res.json('Unauthorized');
+            } else {
+                res.json({ token: jwt.sign({ id: user.id }, process.env.TOKEN_KEY) });
             }
-            res.json({ token: jwt.sign({ id: user.id }, process.env.TOKEN_KEY) });
         } catch (error) {
             logger.warn(`Error: ${error.message}`);
             res.status(404).json({ message: 'User not found' });
